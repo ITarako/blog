@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Tag;
 
 class ArticleController extends Controller
 {
@@ -16,5 +17,11 @@ class ArticleController extends Controller
     {
         $article = Article::findBySlug($slug);
         return view('app.article.show', compact('article'));
+    }
+
+    public function allByTag(Tag $tag)
+    {
+        $articles = $tag->articles()->findByTag();
+        return view('app.article.byTag', compact('articles'));
     }
 }
