@@ -12,7 +12,7 @@
             <p class="card-text">{{article.body}}</p>
             <p>Опубликованно:  <i>{{article.created_at}}</i></p>
             <div class="mt-3">
-                <span class="badge bg-success">{{likes}} <i class="far fa-thumbs-up"></i></span>
+                <likes-component></likes-component>
                 <views-component></views-component>
             </div>
         </div>
@@ -28,12 +28,6 @@
             tagsLen() {
                 return this.$store.state.article.tags.length;
             },
-            views() {
-                return this.$store.getters.articleViews;
-            },
-            likes() {
-                return this.$store.getters.articleLikes;
-            }
         },
         mounted() {
             console.log('Component article is mounted.')

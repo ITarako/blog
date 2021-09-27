@@ -13,6 +13,8 @@ export default new Vuex.Store({
                 views: 0,
             },
         },
+        slug: '',
+        likeIt: true
     },
     actions: {
         getArticleData(context, payload) {
@@ -21,7 +23,7 @@ export default new Vuex.Store({
                     context.commit('SET_ARTICLE', response.data.data)
                 })
                 .catch(() => {
-                    console.log('Error');
+                    console.log('Error getArticleData');
                 });
         },
         viewsIncrement(context, payload) {
@@ -31,9 +33,19 @@ export default new Vuex.Store({
                         context.commit('SET_ARTICLE', response.data.data)
                     })
                     .catch(() => {
-                        console.log('Error')
+                        console.log('Error viewsIncrement')
                     });
             }, 5000)
+        },
+        addLike(context, payload) {
+            axios.put('/api/article-likes-increment', {slug: payload.slug, increment: payload.increment})
+                .then((response) => {
+                    context.commit('SET_ARTICLE', response.data.data)
+                    context.commit('SET_LIKE', !context.state.likeIt)
+                })
+                .catch(() => {
+                    console.log('Error addLike')
+                });
         },
     },
     getters: {
@@ -47,6 +59,12 @@ export default new Vuex.Store({
     mutations: {
         SET_ARTICLE(state, payload) {
             return state.article = payload;
+        },
+        SET_SLUG(state, payload) {
+            state.slug = payload;
+        },
+        SET_LIKE(state, payload) {
+            state.likeIt = payload;
         }
     }
 });
