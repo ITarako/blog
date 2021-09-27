@@ -22,3 +22,5 @@ Route::get('article-json', [\App\Http\Controllers\Api\ArticleController::class, 
 
 Route::put('article-views-increment', [\App\Http\Controllers\Api\ArticleController::class, 'viewsIncrement']);
 Route::put('article-likes-increment', [\App\Http\Controllers\Api\ArticleController::class, 'likesIncrement']);
+
+Route::post('article-add-comment', [\App\Http\Controllers\Api\CommentController::class, 'store']);

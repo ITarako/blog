@@ -14,7 +14,9 @@ export default new Vuex.Store({
             },
         },
         slug: '',
-        likeIt: true
+        likeIt: true,
+        commentSuccess: false,
+        errors: []
     },
     actions: {
         getArticleData(context, payload) {
@@ -47,6 +49,19 @@ export default new Vuex.Store({
                     console.log('Error addLike')
                 });
         },
+        addComment(context, payload) {
+            axios.post('/api/article-add-comment', payload)
+                .then((response) => {
+                    context.commit('SET_COMMENT_SUCCESS', !context.state.commentSuccess);
+                    context.dispatch('getArticleData', context.state.slug);
+                })
+                .catch((error) => {
+                    if (error.response.status === 422) {
+                        context.state.errors = error.response.data.errors
+                    }
+                    console.log('Error addComment')
+                });
+        },
     },
     getters: {
         articleViews(state) {
@@ -65,6 +80,9 @@ export default new Vuex.Store({
         },
         SET_LIKE(state, payload) {
             state.likeIt = payload;
+        },
+        SET_COMMENT_SUCCESS(state, payload) {
+            state.commentSuccess = payload;
         }
     }
 });
