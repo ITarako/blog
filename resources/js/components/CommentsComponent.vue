@@ -45,22 +45,26 @@ export default {
     },
     methods: {
         submit_form() {
-            this.$store.dispatch('addComment', {
+            this.$store.dispatch('article/addComment', {
                 subject: this.subject,
                 body: this.body,
-                article_id: this.$store.state.article.id,
+                // article_id: this.$store.state.article.id,
+                article_id: this.$store.state.article.article.id,
             });
         }
     },
     computed: {
         comments() {
-            return this.$store.state.article.comments;
+            // return this.$store.state.article.comments;
+            return this.$store.state.article.article.comments;
         },
         commentSuccess() {
-            return this.$store.state.commentSuccess;
+            // return this.$store.state.commentSuccess;
+            return this.$store.state.article.commentSuccess;
         },
         errorsMessage(){
-            return this.$store.state.errors;
+            // return this.$store.state.errors;
+            return this.$store.state.article.errors;
         }
     },
 }
