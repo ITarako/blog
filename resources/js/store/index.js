@@ -23,7 +23,18 @@ export default new Vuex.Store({
                 .catch(() => {
                     console.log('Error');
                 });
-        }
+        },
+        viewsIncrement(context, payload) {
+            setTimeout(() => {
+                axios.put('/api/article-views-increment', {slug: payload})
+                    .then((response) => {
+                        context.commit('SET_ARTICLE', response.data.data)
+                    })
+                    .catch(() => {
+                        console.log('Error')
+                    });
+            }, 5000)
+        },
     },
     getters: {
         articleViews(state) {

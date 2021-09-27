@@ -13,7 +13,7 @@
             <p>Опубликованно:  <i>{{article.created_at}}</i></p>
             <div class="mt-3">
                 <span class="badge bg-success">{{likes}} <i class="far fa-thumbs-up"></i></span>
-                <span class="badge bg-primary">{{views}} <i class="far fa-eye"></i></span>
+                <views-component></views-component>
             </div>
         </div>
     </div>
